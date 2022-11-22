@@ -4,4 +4,12 @@ Microservices, is an architectural style that enables an application as a collec
 <img src="https://images.contentstack.io/v3/assets/blt189c1df68c6b48d7/blt4af1f5e13d3d0150/62a5f28a92725d5bf817e9b9/Microservices-3.png"/>
 
 ## What is Docker Containers
-Lightweight compare to virtual machines. It doesn't use a lot of hardware resources as its shares those resources with the whole system. On top of these, it runs application inside "containers" and is safe and contains all the resources it is required to run the application. this container can be run in any other 
+Lightweight compare to virtual machines. It doesn't use a lot of hardware resources as its shares those resources with the whole system. On top of these, it runs application inside "containers" and is safe and contains all the resources it is required to run the application. this container can be run in any OS as long as docker is supported. <br/>
+potential error in docker with "tt""
+- `alias docker="winpty docker"`
+
+to kill a background docker
+- `docker rm [process id] -f`
+to run and launch docker
+- `docker run -p localport:dockerport <nameOfdocker>`
+## how this connect to micro services
