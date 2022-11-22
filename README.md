@@ -81,4 +81,11 @@ Commands:
 
 ```
 #### running our web app
-node already has an image of their latest version up and running in  
+node already has an image of their latest version up and running in their docker repo. Using docker pull, we can get the public repo downloaded into our local machine. Therefore this will allow us to use node pre-install inside a docker image. We can then use this image to created "Dockerfile", in other words, a new image that can run our web app application shown in our <a href="https://github.com/Jorge2091/eng130_jorge_docker/blob/main/web/Dockerfile">web</a> folder. The first command tells the file what is the starting image of our new build
+```Dockerfile
+FROM node
+```
+Then we files using `COPY` or we can copy folder using
+```Dockerfile
+ADD app
+```
