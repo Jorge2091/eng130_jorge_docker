@@ -10,6 +10,7 @@ potential error in docker with "tt""
 
 to kill a background docker
 - `docker rm [process id] -f`
+
 to run and launch docker
 - `docker run -p localport:dockerport <nameOfdocker>`
 ## how this connect to micro services
