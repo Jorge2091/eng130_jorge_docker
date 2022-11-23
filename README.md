@@ -36,6 +36,12 @@ To download or pull container
 - `docker pull hello-world`
 - to check image in your local computer `docker image ls`
 we can run the command `docker` in terminal, we can get more OPTIONS
+- to copy files to a container `docker cp <file> <container_id>:<path>`
+- to interact with the bash of any running container `docker exec -it <container_id> bash`
+- to get a specific version of a container, you can identify it by going to the "tags" and add it on the end of the name as so `docker pull node:<tag>` or to run `docker run -p 80:80 node:<tag>`
+
+<img src="./images/tags.png"/>
+
 ```
 Commands:
   attach      Attach local standard input, output, and error streams to a running container
@@ -88,4 +94,50 @@ FROM node
 Then we files using `COPY` or we can copy folder using
 ```Dockerfile
 ADD app
+```
+change the directory with
+```Dockerfile
+WORKDIR /usr/local/app
+RUN npm install -g npm@latest
+RUN npm install
+```
+
+this will cd the terminal to the location to make the next command work
+
+```Dockerfile
+RUN node seeds/seed.js
+```
+another that can work is `RUN node /usr/local/app/seeds/seed.js`
+but the CMD wont start as it needs to located the app.js so the `WORKDIR` has to be inside the app folder
+```Dockerfile
+CMD [ "npm", "start" ]
+```
+image.png
+
+### running a html page of your own
+by going inside the nginx container, we can located the loaded page in `/usr/share/nginx/html/` with the name `index.html` therefore, we can edit this page or replace it entirely to load any page of our own. For this example, we can load a profile page to promote ourself as shown:
+
+<img src="./images/page.png"/>
+
+We can decorate this as much as we like and host it through the internet if we want. the way we can do this is by editing the nginx page and going to that location. Here is an example:
+```Dockerfile
+# start nginx
+# docker pull nginx
+FROM nginx 
+# created index.html profile - copy to container
+# ENV NODE_ENV=production
+LABEL MAINTAINER=jorge
+WORKDIR /app
+# default location /usr/share/nginx/html
+COPY index.html /usr/share/nginx/html/
+COPY Jorge_reyes_photo.jpg /usr/share/nginx/html/
+# docker run -d -p 80:80 name
+RUN npm install
+
+# port number
+EXPOSE 80
+# launch the server
+
+CMD ["nginx", "-g", "daemon off;"]
+
 ```
