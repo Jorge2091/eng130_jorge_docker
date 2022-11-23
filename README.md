@@ -42,6 +42,11 @@ we can run the command `docker` in terminal, we can get more OPTIONS
 
 <img src="./images/tags.png"/>
 
+- we can also views our pulled images with `docker image ls` which also include any tags to represent them
+
+<img src="./images/imagels.png"/>
+
+
 ```
 Commands:
   attach      Attach local standard input, output, and error streams to a running container
@@ -140,4 +145,38 @@ EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
 
+```
+### docker-compose
+Docker compose is similar to ansible yaml files. and also in the same format `.yml`. it is a way to load numerous containers with running one file. On top of this, we can also set environment inside containers and link them so they can communicate with one another, we can either link them with our localhost ports, through internet ip or through containers IP. the example below is linking them by container IP.
+```yaml
+
+services: 
+  mongo:
+    #load from an mongo image with version 4.0.4
+    image: mongo:4.0.4
+    container_name: mongo
+    restart: always
+    # shares a file inside docker, similar to sync files in Vagrantfile. sync in real time in both local and container. only possible if container is in local machine
+    volumes:
+      - ./db/mongod.conf:/etc/mongod.conf
+    # localPort:containerPort
+    ports:
+      - "27017:27017"
+
+  app:
+    container_name: app
+    restart: always
+    # load from a Dockerfile in the location below
+    build: ./web
+    # connects localPort:containerPort
+    ports:
+      - "3000:3000"
+    # links container "mongo"
+    links:
+      - mongo
+    environment: 
+      # sets the environment so that web app can identify it
+      - DB_HOST=mongodb://mongo:27017/posts
+    depends_on:
+      - mongo
 ```
