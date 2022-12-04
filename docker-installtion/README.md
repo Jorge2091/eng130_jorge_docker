@@ -1,0 +1,1 @@
+# bash installation for docker in a new ec2

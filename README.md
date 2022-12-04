@@ -180,3 +180,8 @@ services:
     depends_on:
       - mongo
 ```
+# CICD with jenkins and docker
+
+<img src="./images/do.png" width="800"/>
+
+As shown in <a href="https://github.com/Jorge2091/eng130_jenkins">eng130_jenkins</a>, we have already created an automation for the CICD of the app merging and testing of the new codes using jenkins. The next step from this is to created an image of the already tested codes using docker and uploading this new image to docker hub as shown in the image above. And the final steps are the updating of this new image to the server and connecting the database and seeding.

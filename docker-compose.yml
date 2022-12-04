@@ -18,8 +18,8 @@ services:
     build: ./web
     ports:
       - "3000:3000"
-    links:
-      - mongo
+    # links:
+    #   - mongo
     environment: 
       - DB_HOST=mongodb://mongo:27017/posts
     depends_on:
